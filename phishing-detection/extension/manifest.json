@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Phishing Shield",
+  "version": "2.0.0",
+  "description": "URL and email phishing detection using local FastAPI backend.",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "permissions": ["activeTab", "tabs", "storage", "scripting", "notifications"],
+  "host_permissions": ["http://127.0.0.1:8000/*", "http://localhost:8000/*", "https://*/*", "http://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Phishing Shield",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

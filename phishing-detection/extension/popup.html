@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Phishing Shield</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <h1>Phishing Shield</h1>
+    <div class="header-right">
+      <div id="backendBadge" class="backend-badge offline"><span class="dot"></span><span id="backendText">Backend: checking</span></div>
+      <div id="status" class="status">Ready</div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-section="url"><img class="ui-icon" src="assets/ui/url.svg" alt="" />URL</button>
+    <button class="tab" data-section="email"><img class="ui-icon" src="assets/ui/email.svg" alt="" />Email</button>
+    <button class="tab" data-section="settings"><img class="ui-icon" src="assets/ui/manual.svg" alt="" />Settings</button>
+  </nav>
+
+  <section id="section-url" class="section active">
+    <label>Current Page URL</label>
+    <div id="currentUrl" class="urlbox">Loading...</div>
+    <button id="checkCurrent" class="btn"><img class="btn-icon" src="assets/ui/scan.svg" alt="" />Scan Current URL</button>
+
+    <label>Manual URL</label>
+    <input id="urlInput" class="input" placeholder="https://example.com/login" />
+    <button id="checkUrl" class="btn"><img class="btn-icon" src="assets/ui/manual.svg" alt="" />Analyze URL</button>
+
+    <div id="urlResult" class="result hidden"></div>
+  </section>
+
+  <section id="section-email" class="section">
+    <div class="mode-tabs">
+      <button id="emailModeAuto" class="mode-tab active"><img class="ui-icon" src="assets/ui/auto.svg" alt="" />Automatic</button>
+      <button id="emailModeManual" class="mode-tab"><img class="ui-icon" src="assets/ui/manual.svg" alt="" />Manual</button>
+    </div>
+
+    <div id="emailAutoSection" class="mode-section active">
+      <div class="hint">Open an email in Gmail, Outlook, or Yahoo Mail and click scan.</div>
+      <button id="extractEmailAuto" class="btn"><img class="btn-icon" src="assets/ui/auto.svg" alt="" />Extract Current Email</button>
+      <label>Extracted Email Preview</label>
+      <textarea id="emailPreview" rows="5" readonly placeholder="Click Extract Current Email to preview detected content..."></textarea>
+      <button id="checkEmailAuto" class="btn"><img class="btn-icon" src="assets/ui/scan.svg" alt="" />Scan Current Email</button>
+    </div>
+
+    <div id="emailManualSection" class="mode-section">
+      <label>Email Text</label>
+      <textarea id="emailInput" rows="6" placeholder="Paste email subject and body..."></textarea>
+      <button id="checkEmailManual" class="btn"><img class="btn-icon" src="assets/ui/manual.svg" alt="" />Analyze Email</button>
+    </div>
+
+    <div id="emailResult" class="result hidden"></div>
+  </section>
+
+  <section id="section-settings" class="section">
+    <label class="hidden-threshold">Detection Threshold</label>
+    <div class="threshold-row hidden-threshold">
+      <input id="thresholdSlider" type="range" min="0.1" max="0.9" step="0.01" value="0.5" />
+      <span id="thresholdValue">0.50</span>
+    </div>
+
+    <label>Report Export</label>
+    <div class="row">
+      <button id="exportSuspiciousJson" class="btn"><img class="btn-icon" src="assets/ui/scan.svg" alt="" />Export JSON</button>
+      <button id="exportSuspiciousCsv" class="btn"><img class="btn-icon" src="assets/ui/manual.svg" alt="" />Export CSV</button>
+    </div>
+
+    <label>Recent Scans (Last 10)</label>
+    <div class="history-actions">
+      <button id="clearHistory" class="mini-btn">Clear History</button>
+    </div>
+    <div id="historyList" class="history-list"></div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>
